@@ -17,6 +17,7 @@ adjecent(4,1).
 adjecent(5,1).
 adjecent(3,2).
 adjecent(4,2).
+adjecent(4,3).
 adjecent(5,4).
 
 color(1,red,a).
@@ -31,6 +32,7 @@ color(3,green,b).
 color(4,blue,b).
 color(5,green,b).
 
-conflict(Z):-adjecent(X,Y),color(X,C,Z),color(Y,C,Z).
+conflict(Z):-adjecent(X,Y),color(X,C,Z),color(Y,C,Z)->writeln('Not Valid');
+                          writeln('Valid').
 
 conflict(X,Y,Z):-adjecent(X,Y),color(X,C,Z),color(Y,C,Z).
