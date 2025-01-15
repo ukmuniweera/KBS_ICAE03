@@ -21,21 +21,12 @@ move(state(X, Y), pour_3_to_4, state(NewX, NewY)) :-
     NewY is Y - Transfer.
 
 % Solve the water jug problem
-solve :-
-    init_state(Start),
-    solve_jug(Start, [Start], Solution),
-    write('Solution: '), nl,
-    print_solution(Solution).
+solve :- init_state(S), solve_jug(S, [S], Sol), write('Solution: '), nl, print_solution(Sol).
 
-% Recursive function to solve the problem
-solve_jug(State, _, []) :- goal_state(State).
-solve_jug(State, Visited, [Move | Moves]) :-
-    move(State, Move, NewState),
-    \+ member(NewState, Visited),
-    solve_jug(NewState, [NewState | Visited], Moves).
+% Recursive solution
+solve_jug(S, _, []) :- goal_state(S).
+solve_jug(S, V, [M | Ms]) :- move(S, M, NS), \+ member(NS, V), solve_jug(NS, [NS | V], Ms).
 
-% Print the solution
+% Print solution
 print_solution([]).
-print_solution([Move | Rest]) :-
-    write(Move), nl,
-    print_solution(Rest).
+print_solution([M | R]) :- write(M), nl, print_solution(R).
